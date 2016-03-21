@@ -41,11 +41,24 @@ $(document).ready(function(){
 		gameTiles = cards.slice(0,(gridSize/2));
 		
 		gridArray = $.merge(gameTiles, gameTiles);
-		console.dir(gridArray);
+		shuffle();
+		// console.dir(gridArray);
 
 
 
 		//shuffle here
+
+		function shuffle(){
+			for(i=1; i<10; i++){
+				card1 = Math.floor(Math.random() * gridArray.length);
+				card2 = Math.floor(Math.random() * gridArray.length);
+				if(card1 !== card2){
+					temp = gridArray[card1];
+					gridArray[card1] = gridArray[card2];
+					gridArray[card2] = temp;
+				}
+			}
+		}
 
 		//place here
 		for(i = 0; i < gridArray.length; i++){
@@ -65,57 +78,46 @@ $(document).ready(function(){
 			$(this).find('.mg-tile-inner').addClass('flipped');
 			if($('.flipped.unmatched').length == 2){
 				moves++;
-
-				var card = [];
+				$('#move-counter').html(moves);
 				var visibleCards = $('.flipped.unmatched img');
 				if(visibleCards[0].src == visibleCards[1].src){
-					alert('Way to go');
+					// alert('Way to go');
 					// leave them flipped
 					// remove unmatched
 					// add matched
-					$('.flipped .unmatched').addClass('matched');
-					$('.flipped .unmatched').removeClass('unmatched');
+					$('.flipped.unmatched').addClass('matched');
+					$('.flipped.unmatched').removeClass('unmatched');
 					
 				}else{
 					setTimeout(function(){
-					$('.flipped.unmatched').removeClass('flipped');
-				},500);
+						$('.flipped.unmatched').removeClass('flipped');
+					},1000);
 
 				}
-				if($('.flipped .matched').length == gridArray.length){
+				if($('.flipped.matched').length == gridArray.length){
+					wins++;
+					$('#wins-counter').html(wins);
 					alert('You have matched them all.');
-					wins++;	
+					reset();
 				}
-			}else{
-				$('#move-counter').html(moves);
-				$('#wins-counter').html(wins);
-			}
+			
+			// $('#move-counter').html(moves);
+			// $('#wins-counter').html(wins);
+			};
 
 
 
 		});
 
-		// $('.mg-tile-inner').click(function(){
-		// 	// var flippedTiles = $('.flipped').attr('src');
-		// 	// var tile2 = $('.mg-tile-inner').attr('src');
-		// 	if($('.mg-tile-inner.flipped').length>1){
-		// 			var flippedTiles = $('.flipped').attr('src');
-		// 			flippedTiles[0]
-		// 			if(){
-
-
-		// 			}
-		// 			$('.mg-tile-inner').addClass('matched');
-		// 		}else{
-		// 			$('')
-		// 		}
-		// }
-		// })
+		function reset() {
+					moves = 0;
+					$("#move-counter").html(moves);
+					$(".mg-tile").remove();
+					$("#button-bucket").toggle();
+				}
 
 
 	});
 
+});
 
-
-
-})
