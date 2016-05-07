@@ -30,13 +30,13 @@ $(document).ready(function(){
 		if(diff == 'easy'){
 			rowSize = 5;
 			gridSize = rowSize*2;
-		}else if(diff == 'med'){
+		}else if(diff == 'hard'){
 			rowSize = 5;
 			gridSize = rowSize*4;
-		}else if(diff == 'hard'){
-			rowSize = 7;
-			gridSize = rowSize*4;
-		}
+		}//else if(diff == 'hard'){
+		// 	rowSize = 7;
+		// 	gridSize = rowSize*4;
+		// }
 		$('#button-bucket').toggle();
 		gameTiles = cards.slice(0,(gridSize/2));
 		
